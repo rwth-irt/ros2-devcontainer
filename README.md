@@ -1,8 +1,8 @@
-# VSCode ROS2 Workspace Template
+# ROS2 Devcontainer
 
-This template will get you set up using ROS2 with VSCode as your IDE.
+This repo will get you set up using ROS2 with VSCode as your IDE.
 
-See [how I develop with vscode and ros2](https://www.allisonthackston.com/articles/vscode_docker_ros2.html) for a more in-depth look on how to use this workspace.
+Based on Allison Thackston's template, see [how she develops with vscode and ros2](https://www.allisonthackston.com/articles/vscode_docker_ros2.html) for a more in-depth look on how to use this workspace.
 
 ## Features
 
@@ -34,7 +34,7 @@ To remove a linter just delete it's name from this line:
           linter: [cppcheck, cpplint, uncrustify, lint_cmake, xmllint, flake8, pep257]
 ```
 
-## How to use this template
+## How to use this devcontainer
 
 ### Prerequisites
 
@@ -44,27 +44,14 @@ You should already have Docker and VSCode with the remote containers plugin inst
 * [vscode](https://code.visualstudio.com/)
 * [vscode remote containers plugin](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-### Get the template
 
-Click on "use this template"
+### Clone repo
 
-![template_use](https://user-images.githubusercontent.com/6098197/91331899-43f23b80-e780-11ea-92c8-b4665ce126f1.png)
-
-### Create your repository
-
-On the next dialog, name the repository you would like to start and decide if you want all of the branches, or just the latest LTS: humble.
-
-![template_new](https://user-images.githubusercontent.com/6098197/91332035-713ee980-e780-11ea-81d3-13b170f568b0.png)
-
-Github will then create a new repository with the contents of this one in your account.  It grabs the latest changes as "initial commit".
-
-### Clone your repo
-
-Now you can clone your repo as normal
+Now you can clone this repo as normal
 
 ![template_download](https://user-images.githubusercontent.com/6098197/91332342-e4e0f680-e780-11ea-9525-49b0afa0e4bb.png)
 
-### Open it in vscode
+### Open it in VSCode
 
 Now that you've cloned your repo onto your computer, you can open it in VSCode (File->Open Folder). 
 
@@ -94,11 +81,26 @@ VSCode will build the dockerfile inside of `.devcontainer` for you.  If you open
 5. Develop!
 
 
+### Check if everything is working
+Run this command to see if the GUI show up, TAB autocomplete should work.
+Requires `ros2-<distro>-desktop` to be installed in `.devcontainer/Dockerfile`
+```bash
+ros2 run turtlesim turtlesim_node
+```
+Start another terminal and run this node to control the turtle with your keyboard, instructions are printed into the terminal.
+```bash
+ros2 run turtlesim turtle_teleop_key
+```
+Finally check whether the Qt and 3D applications work without glitches, e.g., when resizing:
+```bash
+ros2 run rviz2 rviz2
+```
+
 ## FAQ
 
 ### WSL2
 
-#### The gui doesn't show up
+#### The GUI doesn't show up
 
 This is likely because the DISPLAY environment variable is not getting set properly.
 
@@ -143,26 +145,3 @@ If you want to access the vGPU through WSL2, you'll need to add additional compo
 		"LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
 	},
 ```
-
-### Repos are not showing up in VS Code source control
-
-This is likely because vscode doesn't necessarily know about other repositories unless you've added them directly. 
-
-```
-File->Add Folder To Workspace
-```
-
-![Screenshot-26](https://github.com/athackst/vscode_ros2_workspace/assets/6098197/d8711320-2c16-463b-9d67-5bd9314acc7f)
-
-
-Or you've added them as a git submodule.
-
-![Screenshot-27](https://github.com/athackst/vscode_ros2_workspace/assets/6098197/8ebc9aac-9d70-4b53-aa52-9b5b108dc935)
-
-To add all of the repos in your *.repos file, run the script
-
-```bash
-python3 .devcontainer/repos_to_submodules.py
-```
-
-or run the task titled `add submodules from .repos`

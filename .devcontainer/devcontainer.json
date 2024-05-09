@@ -1,48 +1,52 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-	"dockerFile": "Dockerfile",
-	"build": {
-		"args": {
-			"WORKSPACE": "${containerWorkspaceFolder}"
-		}
-	},
-	"remoteUser": "ros",
-	"runArgs": [
-		"--network=host",
-		"--cap-add=SYS_PTRACE",
-		"--security-opt=seccomp:unconfined",
-		"--security-opt=apparmor:unconfined",
-		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
-		"--volume=/mnt/wslg:/mnt/wslg",
-		"--ipc=host"
-		// uncomment to use intel iGPU
-		// "--device=/dev/dri"
-	],
-	"containerEnv": {
-		"DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
-		"WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
-		"XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
-		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
-		"LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
-	},
-	// Set *default* container specific settings.json values on container create.
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"althack.ament-task-provider",
-				"betwo.b2-catkin-tools",
-				"DotJoshJohnson.xml",
-				"ms-azuretools.vscode-docker",
-				"ms-iot.vscode-ros",
-				"ms-python.python",
-				"ms-vscode.cpptools",
-				"redhat.vscode-yaml",
-				"smilerobotics.urdf",
-				"streetsidesoftware.code-spell-checker",
-				"twxs.cmake",
-				"yzhang.markdown-all-in-one",
-				"zachflower.uncrustify"
-			]
-		}
-	}
+  "dockerFile": "Dockerfile",
+  "build": {
+    "args": {
+      "WORKSPACE": "${containerWorkspaceFolder}"
+    }
+  },
+  "remoteUser": "ros",
+  "runArgs": [
+    "--network=host", // communicate with devices on local network
+    "--cap-add=SYS_PTRACE", // debugging
+    "--security-opt=seccomp:unconfined", // debugging
+    "--security-opt=apparmor:unconfined", // debugging
+    "--volume=/tmp/.X11-unix:/tmp/.X11-unix", // GUI support
+    "--volume=/mnt/wslg:/mnt/wslg", // WSL GUI support
+    "--ipc=host" // avoid Qt glitches
+    // "--device=/dev/dri" // uncomment to use intel iGPU
+    // "--gpus=all" // uncomment to use NVDIA GPU
+  ],
+  "containerEnv": {
+    "ROS_LOCALHOST_ONLY": "1", // Do not spam the IRT network by default
+    "ROS_DOMAIN_ID": "42", // Check if anyone else is spamming on this ID at the local network
+    // "DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI
+    "DISPLAY": ":0", // WSL specific
+    "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+    "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir",
+    "PULSE_SERVER": "${localEnv:PULSE_SERVER}"
+    // "LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
+  },
+  // Set *default* container specific settings.json values on container create.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "althack.ament-task-provider",
+        "betwo.b2-catkin-tools",
+        "DotJoshJohnson.xml",
+        "epivision.vscode-file-header",
+        "ms-azuretools.vscode-docker",
+        "ms-iot.vscode-ros",
+        "ms-python.python",
+        "ms-vscode.cpptools",
+        "redhat.vscode-yaml",
+        "smilerobotics.urdf",
+        "streetsidesoftware.code-spell-checker",
+        "twxs.cmake",
+        "yzhang.markdown-all-in-one",
+        "zachflower.uncrustify"
+      ]
+    }
+  }
 }
