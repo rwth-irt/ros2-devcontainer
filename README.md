@@ -88,6 +88,8 @@ This allows you to en-/disable the dedicated NVIDIA GPU or use external devices.
 5. Develop!
 
 ### Check if everything is working
+Check the output in the *Dev Containers* terminal, it should give you an `OpenGL renderer string` which specifies your GPU vendor.
+
 Run this command to see if the GUI show up, TAB autocomplete should work.
 Requires `ros2-<distro>-desktop` to be installed in `.devcontainer/Dockerfile`
 ```bash
