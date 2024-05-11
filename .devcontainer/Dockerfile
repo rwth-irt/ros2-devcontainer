@@ -1,7 +1,8 @@
 # Good minimal starting point from Allison Thackston, which includes dev tools like curl, cmake, git, ros-dev-tools, ...
 # FROM althack/ros2:humble-dev 
-# If you need rqt GUIs & RViz 
-FROM althack/ros2:humble-full
+# If you need rqt GUIs & RViz use -full suffix
+# Addtionally, Gazebo is included with the suffix -gazebo  
+FROM althack/ros2:humble-gazebo
 # If you need CUDA use
 # FROM althack/ros2:humble-cuda-dev
 # CUDA support, Gazebo, and GUIs
@@ -17,16 +18,6 @@ RUN apt-get update \
   # Nice plots for debugging
   ros-$ROS_DISTRO-plotjuggler-ros \
   && apt-get upgrade -y \
-  # Clean up
-  && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/*
-
-# Gazebo Garden for compatibility to WSL setup
-RUN wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null \
-  && apt-get update \
-  && apt-get install -y ros-$ROS_DISTRO-ros-gzgarden \
   # Clean up
   && apt-get autoremove -y \
   && apt-get clean -y \

@@ -25,19 +25,19 @@ services:
       XDG_RUNTIME_DIR: XDG_RUNTIME_DIR
       PULSE_SERVER: PULSE_SERVER
       # Optional: Use NVIDIA GPU for rendering
-      # __NV_PRIME_RENDER_OFFLOAD: 1
-      # __GLX_VENDOR_LIBRARY_NAME: nvidia
+      __NV_PRIME_RENDER_OFFLOAD: 1
+      __GLX_VENDOR_LIBRARY_NAME: nvidia
     devices:
       # Accelerated 3D graphics
       - /dev/dri
     # Optional: Enable CUDA
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           capabilities: [gpu]
-    #           # count: 1 # limit number of GPUs used by container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              # count: 1 # limit number of GPUs used by container
     # Required for ptrace-based debuggers like C++
     cap_add:
       - SYS_PTRACE

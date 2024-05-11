@@ -27,13 +27,13 @@ services:
       - /dev/dri
       - /dev/dxg
     # Optional: Enable CUDA
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           capabilities: [gpu]
-    #           # count: 1 # limit number of GPUs used by container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              # count: 1 # limit number of GPUs used by container
     group_add:
       # Access /dev/dri/card0
       - video
