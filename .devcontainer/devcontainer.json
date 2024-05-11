@@ -1,33 +1,13 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-  "dockerFile": "Dockerfile",
-  "build": {
-    "args": {
-      "WORKSPACE": "${containerWorkspaceFolder}"
-    }
-  },
+  // When using WSL
+  "dockerComposeFile": "WSL-docker-compose.yml",
+  // When using full Linux installation
+  // "dockerComposeFile": "docker-compose.yml",
+  "service": "ros2-devcontainer",
+  "workspaceFolder": "/workspace",
   "remoteUser": "ros",
-  "runArgs": [
-    "--network=host", // communicate with devices on local network
-    "--cap-add=SYS_PTRACE", // debugging
-    "--security-opt=seccomp:unconfined", // debugging
-    "--security-opt=apparmor:unconfined", // debugging
-    "--volume=/tmp/.X11-unix:/tmp/.X11-unix", // GUI support
-    "--volume=/mnt/wslg:/mnt/wslg", // WSL GUI support
-    "--ipc=host" // avoid Qt glitches
-    // "--device=/dev/dri" // uncomment to use intel iGPU
-    // "--gpus=all" // uncomment to use NVDIA GPU
-  ],
-  "containerEnv": {
-    "ROS_LOCALHOST_ONLY": "1", // Do not spam the IRT network by default
-    "ROS_DOMAIN_ID": "42", // Check if anyone else is spamming on this ID at the local network
-    // "DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI
-    "DISPLAY": ":0", // WSL specific
-    "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
-    "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir",
-    "PULSE_SERVER": "${localEnv:PULSE_SERVER}"
-    // "LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
-  },
+  "postCreateCommand": "/bin/sh .devcontainer/postcreate.sh",
   // Set *default* container specific settings.json values on container create.
   "customizations": {
     "vscode": {
@@ -39,6 +19,7 @@
         "ms-azuretools.vscode-docker",
         "ms-iot.vscode-ros",
         "ms-python.python",
+        // "ms-vscode.cmake-tools",
         "ms-vscode.cpptools",
         "redhat.vscode-yaml",
         "smilerobotics.urdf",
