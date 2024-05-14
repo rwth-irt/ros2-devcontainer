@@ -1,6 +1,5 @@
 # Use this, if you run Linux in Windows via WSL2
 # VSCode remote containers extensions does the magic of enabling GUI access
-version: "3.8"
 services:
   ros2-devcontainer:
     build:

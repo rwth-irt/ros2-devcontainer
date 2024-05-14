@@ -1,5 +1,4 @@
 # Use this, if you run a full Linux installation
-version: "3.8"
 services:
   ros2-devcontainer:
     build:
