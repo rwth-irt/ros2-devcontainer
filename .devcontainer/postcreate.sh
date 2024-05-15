@@ -4,3 +4,4 @@ rosdep update
 rosdep install --from-paths src -i -r -y
 # Check rendering support
 glxinfo | grep 'OpenGL render'
+glxinfo | grep 'OpenGL version'

@@ -11,7 +11,7 @@ FROM althack/ros2:humble-gazebo
 # Add your own additional packages
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Use latest Mesa drivers for best WSL support
+# Use latest Mesa drivers for best Gazebo & WSL support
 RUN add-apt-repository ppa:oibaf/graphics-drivers \
   && apt-get update \
   && apt-get install -y \
