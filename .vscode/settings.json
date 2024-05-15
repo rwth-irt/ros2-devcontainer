@@ -76,5 +76,5 @@
   "git.repositoryScanMaxDepth": 3,
   "powerHeader.autoInsert.enable": true,
   "powerHeader.commentMode": "line",
-  "powerHeader.template": "@license BSD-3 https://opensource.org/licenses/BSD-3-Clause\nCopyright (c) $CURRENT_YEAR, Tim Redick",
+  "powerHeader.template": "@license BSD-3 https://opensource.org/licenses/BSD-3-Clause\nCopyright (c) $CURRENT_YEAR, Institute of Automatic Control - RWTH Aachen University",
 }
