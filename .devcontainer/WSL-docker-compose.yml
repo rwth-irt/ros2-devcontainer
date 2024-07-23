@@ -18,7 +18,7 @@ services:
       # When using local network check if anyone else is spamming on this ID
       ROS_DOMAIN_ID: 42
       # Optional: Switch between GPUs for 3D acceleration, e.g., Intel or NVIDIA
-      MESA_D3D12_DEFAULT_ADAPTER_NAME: NVIDIA
+      MESA_D3D12_DEFAULT_ADAPTER_NAME: Intel
       # Accelerated 3D graphics
       LD_LIBRARY_PATH: /usr/lib/wsl/lib
     devices:
