@@ -12,14 +12,14 @@ FROM althack/ros2:humble-gazebo
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Use latest Mesa drivers for best Gazebo & WSL support
-RUN add-apt-repository ppa:oibaf/graphics-drivers \
+RUN add-apt-repository ppa:kisak/kisak-mesa \
   && apt-get update \
   && apt-get install -y \
   # Check if GUI and 3D acceleration works
   mesa-utils x11-apps \
   # Nice plots for debugging
   ros-$ROS_DISTRO-plotjuggler-ros \
-  && apt-get upgrade -y \
+  && apt-get full-upgrade -y \
   # Clean up
   && apt-get autoremove -y \
   && apt-get clean -y \

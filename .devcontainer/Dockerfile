@@ -17,7 +17,7 @@ RUN apt-get update \
   mesa-utils x11-apps \
   # Nice plots for debugging
   ros-$ROS_DISTRO-plotjuggler-ros \
-  && apt-get upgrade -y \
+  && apt-get full-upgrade -y \
   # Clean up
   && apt-get autoremove -y \
   && apt-get clean -y \
