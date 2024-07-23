@@ -2,3 +2,6 @@ build/*
 install/*
 log/*
 site/*
+# Packages should be their own git repositories and not added to the ros2 devcontainer
+# Use ROS tools like vcstool to setup your workspace
+src/**/
