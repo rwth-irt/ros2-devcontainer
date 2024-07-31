@@ -25,14 +25,14 @@ services:
       # Accelerated 3D graphics
       - /dev/dri
       - /dev/dxg
-    # Optional: Enable CUDA
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: [gpu]
-              # count: 1 # limit number of GPUs used by container
+    # Optional: Enable CUDA, requires NVIDA containter toolkit to be installed
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           capabilities: [gpu]
+    # count: 1 # limit number of GPUs used by container
     group_add:
       # Access /dev/dri/card0
       - video
