@@ -70,14 +70,10 @@ VSCode will build the dockerfile inside of `.devcontainer` for you.  If you open
 ![template_container](https://user-images.githubusercontent.com/6098197/91332895-adbf1500-e781-11ea-8afc-7a22a5340d4a.png)
 
 ### Adapt to your needs
-Look into `.devcontainer/devcontainer.json` and change `dockerComposeFile` depending on your operating system:
-- `docker-compose.yml` for a full Linux installation
-- `WSL-docker-compose.yml` for a WSL2 installation in Windows
 Check your `docker-compose.yml` and adjust values as required, specifically `Optional` values.
 This allows you to en-/disable the dedicated NVIDIA GPU or use external devices.
 
 ### Update the template with your code
-
 1. Specify the repositories you want to include in your workspace in `src/ros2.repos` or delete `src/ros2.repos` and develop directly within the workspace.
 2. If you are using a `ros2.repos` file, import the contents `Terminal->Run Task..->import from workspace file`
 3. Install dependencies `Terminal->Run Task..->install dependencies`
