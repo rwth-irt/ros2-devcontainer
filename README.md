@@ -117,3 +117,7 @@ Starting the ros2 daemon resolves this issue, but might require additional steps
 ```bash
 ros2 daemon start
 ```
+
+Tave a look at these GitHub issues to find out about the progress on this issue:
+* https://github.com/ros2/ros2cli/issues/934
+* https://github.com/microsoft/WSL/issues/10855
