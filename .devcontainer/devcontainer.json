@@ -1,7 +1,7 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
   // When using WSL
-  "dockerComposeFile": "WSL-docker-compose.yml",
+  "dockerComposeFile": "docker-compose.yml",
   // When using full Linux installation
   // "dockerComposeFile": "docker-compose.yml",
   "service": "ros2-devcontainer",

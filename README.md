@@ -14,10 +14,10 @@ ROS2-approved formatters are included in the IDE.
 * **python** autopep8; vscode settings consistent with the [style guide](https://index.ros.org/doc/ros2/Contributing/Code-Style-Language-Versions/)
 
 ### Tasks
+There are many pre-defined tasks, see [`.vscode/tasks.json`](.vscode/tasks.json) for a complete listing.
+You are welcome to adjust them to suit your needs.  
 
-There are many pre-defined tasks, see [`.vscode/tasks.json`](.vscode/tasks.json) for a complete listing.  Feel free to adjust them to suit your needs.  
-
-Take a look at [how I develop using tasks](https://www.allisonthackston.com/articles/vscode_tasks.html) for an idea on how Allison uses tasks in her development.
+Take a look at [how I develop using tasks](https://www.allisonthackston.com/articles/vscode_tasks.html) for an idea of how Allison uses tasks in her development.
 
 ### Debugging
 
@@ -27,7 +27,7 @@ This template sets up debugging for python files, gdb for cpp programs and ROS l
 
 The template also comes with basic continuous integration set up. See [`.github/workflows/ros.yaml`](/.github/workflows/ros.yaml).
 
-To remove a linter just delete it's name from this line:
+To remove a linter, just delete its name from this line:
 
 ```yaml
       matrix:
@@ -65,19 +65,15 @@ If you don't see the pop-up, click on the little green square in the bottom left
 
 In the dialog, select "Remote Containers: Reopen in container"
 
-VSCode will build the dockerfile inside of `.devcontainer` for you.  If you open a terminal inside VSCode (Terminal->New Terminal), you should see that your username has been changed to `ros`, and the bottom left green corner should say "Dev Container"
+VSCode will build the Dockerfile inside `.devcontainer` for you.  If you open a terminal inside VSCode (Terminal->New Terminal), you should see that your username has been changed to `ros`, and the bottom left green corner should say "Dev Container"
 
 ![template_container](https://user-images.githubusercontent.com/6098197/91332895-adbf1500-e781-11ea-8afc-7a22a5340d4a.png)
 
 ### Adapt to your needs
-Look into `.devcontainer/devcontainer.json` and change `dockerComposeFile` depending on your operating system:
-- `docker-compose.yml` for a full Linux installation
-- `WSL-docker-compose.yml` for a WSL2 installation in Windows
 Check your `docker-compose.yml` and adjust values as required, specifically `Optional` values.
 This allows you to en-/disable the dedicated NVIDIA GPU or use external devices.
 
 ### Update the template with your code
-
 1. Specify the repositories you want to include in your workspace in `src/ros2.repos` or delete `src/ros2.repos` and develop directly within the workspace.
 2. If you are using a `ros2.repos` file, import the contents `Terminal->Run Task..->import from workspace file`
 3. Install dependencies `Terminal->Run Task..->install dependencies`
@@ -107,5 +103,21 @@ ros2 run rviz2 rviz2
 ## FAQ
 
 ### git asks for user and email
-Check if *Configuring* the container finished.
-The vscode remote containers extension should handle the magic for you but does only so after successfully running the `postCreateCommand`.
+Check if *configuring* the container finished.
+The vscode remote containers extension should handle the magic for you, but does only so after successfully running the `postCreateCommand`.
+
+### WSL2 networking
+WSL2 supports different networking modes, **NAT** being the default.
+Communication with external devices requires to forward ports and set firewall rules, e.g., using [this tool](https://github.com/Esensats/pfwsl).
+However, this approach only supports TCP ports, not UDP ports.
+
+Recently, Microsoft added the **mirrored** which enables working with external devices over all protocols.
+However, simple examples do not work using the DDS discovery mechanism.
+Starting the ros2 daemon resolves this issue, but might require additional steps if you have a multi machine setup.
+```bash
+ros2 daemon start
+```
+
+Tave a look at these GitHub issues to find out about the progress on this issue:
+* https://github.com/ros2/ros2cli/issues/934
+* https://github.com/microsoft/WSL/issues/10855

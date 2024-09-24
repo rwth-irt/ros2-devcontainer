@@ -10,6 +10,10 @@ services:
       - ..:/workspace:cached
       # GUI support
       - /tmp/.X11-unix:/tmp/.X11-unix
+      # Accelerated 3D graphics
+      - /usr/lib/wsl:/usr/lib/wsl
+      # User specific runtime files
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
     network_mode: host
     # Avoid Qt glitches
     ipc: host
@@ -20,23 +24,27 @@ services:
       ROS_DOMAIN_ID: 42
       # GUI support
       DISPLAY: $DISPLAY
-      WAYLAND_DISPLAY: WAYLAND_DISPLAY
-      XDG_RUNTIME_DIR: XDG_RUNTIME_DIR
-      PULSE_SERVER: PULSE_SERVER
-      # Optional: Use NVIDIA GPU for rendering
-      __NV_PRIME_RENDER_OFFLOAD: 1
-      __GLX_VENDOR_LIBRARY_NAME: nvidia
+      WAYLAND_DISPLAY: $WAYLAND_DISPLAY
+      XDG_RUNTIME_DIR: $XDG_RUNTIME_DIR
+      PULSE_SERVER: $PULSE_SERVER
+      # Linux (non WSL): Use NVIDIA GPU for rendering, also activate in deploy
+      # __NV_PRIME_RENDER_OFFLOAD: 1
+      # __GLX_VENDOR_LIBRARY_NAME: nvidia
+      # WSL: Switch between GPUs for 3D acceleration, e.g., Intel & NVIDIA
+      MESA_D3D12_DEFAULT_ADAPTER_NAME: Intel
+      # Accelerated 3D graphics
+      LD_LIBRARY_PATH: /usr/lib/wsl/lib
     devices:
       # Accelerated 3D graphics
       - /dev/dri
-    # Optional: Enable CUDA
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: [gpu]
-              # count: 1 # limit number of GPUs used by container
+    # Optional: Make NVIDIA drivers incl. CUDA available
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           capabilities: [gpu]
+    #           count: 1 # limit number of GPUs used by container
     # Required for ptrace-based debuggers like C++
     cap_add:
       - SYS_PTRACE
